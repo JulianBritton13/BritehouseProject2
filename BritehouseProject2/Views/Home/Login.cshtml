@@ -1,0 +1,49 @@
+﻿@model BritehouseProject2.ViewModels.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@if (ViewBag.Status == null || !ViewBag.Status)
+{
+   <div>@ViewBag.Message</div>
+   <div>
+       @using (Html.BeginForm())
+       {
+           <div>
+               
+               <label for="username">username : </label>
+               @Html.TextBoxFor(a => a.username, new { @class = "form-Control" })
+           </div>
+           <div>
+              
+               <label for="password">password : </label>
+               @Html.TextBoxFor(a => a.password, new { @class = "form-Control", type = "password" })
+           </div>
+           <input type="submit" value="Login" class="btn btn-default"/>
+       }
+</div>    
+}
+else
+{
+    <div>@ViewBag.Message</div>
+    <div>
+        <img src="@ViewBag.BarcodeImageUrl"/>
+        </div>
+        <div>
+            Manual Setup Code: @ViewBag.SetupCode
+            </div>
+
+            <div>
+                @using (Html.BeginForm("verify2FA", "Home", FormMethod.Post))
+                {
+                    <input type="text" name="passcode"/>
+                    <input type="submit" class="btn btn-success"/>
+                }
+                </div>
+}
+
+
+
